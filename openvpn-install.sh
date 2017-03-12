@@ -208,7 +208,7 @@ else
 	echo "   3) DNS.WATCH (Germany)"
 	echo "   4) OpenDNS (Anycast: worldwide)"
 	echo "   5) Google (Anycast: worldwide)"
-	DNS=5
+	DNS=1
 	echo ""
 	echo "See https://github.com/Angristan/OpenVPN-install#encryption to learn more about "
 	echo "the encryption in OpenVPN and the choices I made in this script."
@@ -339,7 +339,7 @@ else
 			echo "Ok, bye !"
 			exit 4
 		fi
-		
+
 		if [[ "$OS" = 'arch' ]]; then
 		# Install rc.local
 		echo "[Unit]
@@ -358,7 +358,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/rc-local.service
 				echo "#!/bin/bash" > $RCLOCAL
 			fi
 		fi
-		
+
 		# Install dependencies
 		pacman -Syu openvpn iptables openssl wget ca-certificates curl --needed --noconfirm
 		if [[ "$OS" = 'arch' ]]; then
@@ -400,7 +400,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/rc-local.service
 	cp pki/ca.crt pki/private/ca.key dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
 	# Make cert revocation list readable for non-root
 	chmod 644 /etc/openvpn/crl.pem
-	
+
 	# Generate server.conf
 	echo "port $PORT" > /etc/openvpn/server.conf
 	if [[ "$PROTOCOL" = 'UDP' ]]; then
